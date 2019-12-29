@@ -1,7 +1,7 @@
 import * as sade from 'sade';
 import { registerCommands } from './cmd';
+import pkg from '../package.json';
 
-const pkg = require('../package.json');
 const prog = sade('cdk-ez');
 
 prog.version(pkg.version);
