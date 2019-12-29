@@ -1,0 +1,27 @@
+{
+  "name": "cdk-ez",
+  "version": "0.1.0",
+  "description": "Zero-config easy AWS CDK serverless development",
+  "author": "Josh Kellendonk",
+  "license": "MIT",
+  "bin": {
+    "cdk-ez": "dist/index.js"
+  },
+  "scripts": {
+    "build": "webpack --mode=development",
+    "run": "node dist/index.js $*",
+    "cdk-ez": "run-s build run"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "^1.19.0",
+    "@types/node": "^13.1.1",
+    "@types/sade": "^1.6.0",
+    "npm-run-all": "^4.1.5",
+    "ora": "^4.0.3",
+    "sade": "^1.7.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}
