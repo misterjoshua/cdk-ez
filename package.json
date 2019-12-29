@@ -8,9 +8,10 @@
     "cdk-ez": "dist/index.js"
   },
   "scripts": {
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=development && chmod +x dist/index.js",
     "run": "node dist/index.js $*",
-    "cdk-ez": "run-s build run"
+    "cdk-ez": "run-s build run",
+    "prepare": "run-s build"
   },
   "dependencies": {
     "@aws-cdk/core": "^1.19.0",
