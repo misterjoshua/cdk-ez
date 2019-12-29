@@ -2,9 +2,9 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "./dist/",
-    "target": "esnext",
-    "module": "commonjs",
-    "lib": ["esnext"],
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ESNext","DOM"],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
