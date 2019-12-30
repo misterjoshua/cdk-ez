@@ -22,7 +22,7 @@ export const registerCommands = (prog: Sade): void => {
 
   prog
     .command('lint')
-    .option('--fix', 'Tells lint to fix files', 'fix')
+    .option('--fix', 'Tells lint to fix files')
     .describe('it picks lint')
     .action(lintCommand);
 

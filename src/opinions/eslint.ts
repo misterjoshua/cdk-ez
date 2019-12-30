@@ -1,7 +1,8 @@
 import { CLIEngine } from 'eslint';
 
-export const getEslintOptions = async (): Promise<CLIEngine.Options> => {
+export const getEslintOptions = async (fix: boolean): Promise<CLIEngine.Options> => {
   return {
+    fix: fix,
     baseConfig: {
       root: true,
       parser: '@typescript-eslint/parser',
