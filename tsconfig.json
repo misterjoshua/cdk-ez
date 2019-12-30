@@ -17,6 +17,8 @@
     "strictPropertyInitialization": true,
     "alwaysStrict": true,
     "experimentalDecorators": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true

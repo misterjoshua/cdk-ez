@@ -1,27 +1,15 @@
 import { rollup } from 'rollup';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
-import resolve from '@rollup/plugin-node-resolve';
-import { sync as globSync } from 'glob';
-import ora from 'ora';
 import Listr from 'listr';
-// import path from 'path';
+import { getRollupInputOptions, getRollupOutputOptions } from '../opinions/rollup';
+import { getEntries } from '../opinions/entry';
 
 async function bundle(input: string): Promise<void> {
-  const bundle = await rollup({
-    input,
-    plugins: [typescript({ lib: ['es6'], target: 'es6' }), resolve(), commonjs()],
-  });
-
-  await bundle.write({
-    dir: 'dist',
-    entryFileNames: '[name]/index.js',
-    format: 'cjs',
-  });
+  const build = await rollup(await getRollupInputOptions(input));
+  build.write(await getRollupOutputOptions(input));
 }
 
 export async function buildCommand(): Promise<void> {
-  const entries = globSync('./lambda/**.ts');
+  const entries = await getEntries();
 
   try {
     const tasks = new Listr(
