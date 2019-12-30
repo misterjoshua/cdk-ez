@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import sade from 'sade';
 import { registerCommands } from './cmd';
 import pkg from '../package.json';

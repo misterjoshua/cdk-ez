@@ -1,4 +1,5 @@
 import { Sade } from 'sade';
+import { build } from './build';
 
 export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
   prog.command(command).action(() => {
@@ -8,19 +9,10 @@ export const registerNotImplementedCommand = (prog: Sade, command: string): void
 
 export const registerBuildCommand = (prog: Sade): void => {
   prog
-    .command('build <app>')
-    .describe('it runs build')
+    .command('build')
+    .describe('It builds')
     .action(() => {
-      console.log('Build');
-    });
-};
-
-export const registerDeployCommand = (prog: Sade): void => {
-  prog
-    .command('deploy <app>')
-    .describe('it runs deploy')
-    .action(() => {
-      console.log('Deploy');
+      build();
     });
 };
 
@@ -29,5 +21,4 @@ export const registerCommands = (prog: Sade): void => {
 
   registerNotImplementedCommand(prog, 'test');
   registerNotImplementedCommand(prog, 'lint');
-  registerNotImplementedCommand(prog, 'deploy');
 };

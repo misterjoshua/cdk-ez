@@ -8,7 +8,8 @@
     "cdk-ez": "dist/index.js"
   },
   "scripts": {
-    "build": "webpack --mode=development && chmod +x dist/index.js",
+    "build": "rollup -c && chmod +x dist/index.js",
+    "watch": "rollup -c && chmod +x dist/index.js && rollup -c --watch",
     "test": "jest",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
@@ -30,6 +31,9 @@
   },
   "dependencies": {
     "@aws-cdk/core": "^1.19.0",
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@rollup/plugin-typescript": "^2.0.1",
     "@types/jest": "^24.0.25",
     "@types/node": "^13.1.1",
     "@types/sade": "^1.6.0",
@@ -44,11 +48,13 @@
     "npm-run-all": "^4.1.5",
     "ora": "^4.0.3",
     "prettier": "^1.19.1",
+    "rollup": "^1.27.14",
     "sade": "^1.7.0",
     "ts-jest": "^24.2.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.4",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "typescript": "^3.7.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.0.1",
+    "rollup-plugin-preserve-shebangs": "^0.1.2"
   }
 }
