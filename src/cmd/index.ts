@@ -1,6 +1,7 @@
 import { Sade } from 'sade';
 import { buildCommand } from './build';
 import { watchCommand } from './watch';
+import { lintCommand } from './lint';
 
 export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
   prog.command(command).action(() => {
@@ -19,6 +20,10 @@ export const registerCommands = (prog: Sade): void => {
     .describe('It watches and builds')
     .action(watchCommand);
 
+  prog
+    .command('lint')
+    .describe('it picks lint')
+    .action(lintCommand);
+
   registerNotImplementedCommand(prog, 'test');
-  registerNotImplementedCommand(prog, 'lint');
 };

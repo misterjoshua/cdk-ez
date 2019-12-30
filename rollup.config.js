@@ -21,6 +21,7 @@ export default {
     'listr',
     'path',
     'chokidar',
+    'eslint',
   ],
   plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()],
 };
