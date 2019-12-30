@@ -1,7 +1,8 @@
 import { CLIEngine } from 'eslint';
 import { getEslintOptions, getEslintPatterns } from '../opinions/eslint';
 
-export const lintCommand = async (): Promise<void> => {
+export const lintCommand = async (opt: any): Promise<void> => {
+  console.log(opt);
   try {
     const engine = new CLIEngine(await getEslintOptions());
     const eslintPatterns = await getEslintPatterns();

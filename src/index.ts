@@ -9,5 +9,4 @@ const prog = sade('cdk-ez');
 prog.version(pkg.version);
 registerCommands(prog);
 
-console.log('IT GOES');
 prog.parse(process.argv);
