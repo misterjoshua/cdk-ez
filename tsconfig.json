@@ -1,27 +1,24 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
-    "outDir": "./dist/",
-    "target": "ESNext",
-    "module": "CommonJS",
-    "lib": ["ESNext","DOM"],
     "declaration": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": false,
+    "lib": ["ES6"],
+    "module": "ES6",
+    "outDir": "./dist/",
+    "sourceMap": true,
     "inlineSources": true,
-    "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "typeRoots": ["./node_modules/@types"],
-    "resolveJsonModule": true,
+    "target": "ES6",
+
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "moduleResolution": "Node"
-  },
-  "exclude": ["cdk.out"]
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "experimentalDecorators": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true
+  }
 }

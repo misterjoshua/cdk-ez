@@ -1,5 +1,6 @@
 import { Sade } from 'sade';
-import { build } from './build';
+import { buildCommand } from './build';
+import { watchCommand } from './watch';
 
 export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
   prog.command(command).action(() => {
@@ -7,17 +8,16 @@ export const registerNotImplementedCommand = (prog: Sade, command: string): void
   });
 };
 
-export const registerBuildCommand = (prog: Sade): void => {
+export const registerCommands = (prog: Sade): void => {
   prog
     .command('build')
     .describe('It builds')
-    .action(() => {
-      build();
-    });
-};
+    .action(buildCommand);
 
-export const registerCommands = (prog: Sade): void => {
-  registerBuildCommand(prog);
+  prog
+    .command('watch')
+    .describe('It watches and builds')
+    .action(watchCommand);
 
   registerNotImplementedCommand(prog, 'test');
   registerNotImplementedCommand(prog, 'lint');

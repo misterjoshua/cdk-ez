@@ -2,6 +2,8 @@ import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import { preserveShebangs } from 'rollup-plugin-preserve-shebangs';
 
+import tsconfig from './tsconfig.json';
+
 export default {
   input: './src/index.ts',
   output: {
@@ -9,5 +11,16 @@ export default {
     entryFileNames: 'index.js',
     format: 'cjs',
   },
-  plugins: [typescript({ lib: ['es6'], target: 'es6' }), json(), preserveShebangs()],
+  external: [
+    'sade',
+    'rollup',
+    '@rollup/plugin-commonjs',
+    '@rollup/plugin-typescript',
+    '@rollup/plugin-node-resolve',
+    'glob',
+    'listr',
+    'path',
+    'chokidar',
+  ],
+  plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()],
 };

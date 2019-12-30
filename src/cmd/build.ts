@@ -4,6 +4,8 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import { sync as globSync } from 'glob';
 import ora from 'ora';
+import Listr from 'listr';
+// import path from 'path';
 
 async function bundle(input: string): Promise<void> {
   const bundle = await rollup({
@@ -18,15 +20,29 @@ async function bundle(input: string): Promise<void> {
   });
 }
 
-export async function build(): Promise<void> {
+export async function buildCommand(): Promise<void> {
   const entries = globSync('./lambda/**.ts');
 
-  const spinner = ora(`Bundling: ${entries.join(', ')}`).start();
   try {
-    await Promise.all(entries.map((entry: string) => bundle(entry)));
-    spinner.stop();
+    const tasks = new Listr(
+      entries.map((entry: string) => ({
+        title: `${entry}`,
+        task: (): Promise<void> => bundle(entry),
+      })),
+      {
+        concurrent: true,
+      },
+    );
+
+    const operation = new Listr([
+      {
+        title: 'Building lambdas',
+        task: (): Listr => tasks,
+      },
+    ]);
+
+    await operation.run();
   } catch (e) {
-    spinner.stop();
     console.error('Error ', e);
   }
 }
