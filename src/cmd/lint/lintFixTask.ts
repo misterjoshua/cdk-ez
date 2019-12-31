@@ -1,5 +1,5 @@
 import { lintFix } from '../lintFix';
-import { TaskInfo, LintTaskFn } from './index';
+import { TaskInfo, LintTaskFn } from './task';
 
 export function lintFixTask(_taskInfo: TaskInfo): LintTaskFn {
   return async (ctx, task): Promise<void> => {

@@ -3,7 +3,8 @@ import Listr from 'listr';
 import { getEslintOptions, getEslintPatterns } from '../../opinions/eslint';
 import { lintFixTask } from './lintFixTask';
 import { lintExecTask } from './lintExecTask';
-import { TaskInfo, LintTaskCtx, LintError } from './index';
+import { LintError } from './lintError';
+import { TaskInfo, LintTaskCtx } from './task';
 
 interface LintCommandOpts {
   fix: boolean | undefined;

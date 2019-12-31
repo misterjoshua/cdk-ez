@@ -1,5 +1,6 @@
 import { lintExec } from '../lintExec';
-import { TaskInfo, LintTaskFn, LintError } from './index';
+import { LintError } from './lintError';
+import { TaskInfo, LintTaskFn } from './task';
 
 export function lintExecTask(taskInfo: TaskInfo): LintTaskFn {
   return async (_ctx, task): Promise<void> => {

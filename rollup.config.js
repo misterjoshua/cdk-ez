@@ -22,6 +22,9 @@ export default {
     'path',
     'chokidar',
     'eslint',
+    'execa',
+    'fs',
+    'util',
   ],
   plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()],
 };
