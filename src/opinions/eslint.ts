@@ -8,7 +8,7 @@ export async function getEslintOptions(fix: boolean): Promise<CLIEngine.Options>
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint', 'prettier'],
       rules: {
-        'prettier/prettier': 'error',
+        'prettier/prettier': 'warn',
         '@typescript-eslint/no-unused-vars': 0,
       },
       extends: [
