@@ -1,3 +1,5 @@
 import { lintCommand } from './lintCommand';
+import { lintFixCommand } from './lintFixTask';
+import { lintExecCommand } from './lintExecTask';
 
-export { lintCommand };
+export { lintCommand, lintFixCommand, lintExecCommand };

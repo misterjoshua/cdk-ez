@@ -1,9 +1,7 @@
 import { Sade } from 'sade';
 import { buildCommand } from './build';
 import { watchCommand } from './watch';
-import { lintCommand } from './lint';
-import { lintFixCommand } from './lintFix';
-import { lintExecCommand } from './lintExec';
+import { lintCommand, lintExecCommand, lintFixCommand } from './lint';
 import { testCommand } from './test';
 
 export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
