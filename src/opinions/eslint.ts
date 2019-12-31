@@ -1,6 +1,6 @@
 import { CLIEngine } from 'eslint';
 
-export const getEslintOptions = async (fix: boolean): Promise<CLIEngine.Options> => {
+export async function getEslintOptions(fix: boolean): Promise<CLIEngine.Options> {
   return {
     fix: fix,
     baseConfig: {
@@ -19,7 +19,7 @@ export const getEslintOptions = async (fix: boolean): Promise<CLIEngine.Options>
       ],
     },
   };
-};
+}
 
 export async function getEslintPatterns(): Promise<string[]> {
   return ['./bin/**/*.ts', './lambda/**/*.ts', './lib/**/*.ts'];

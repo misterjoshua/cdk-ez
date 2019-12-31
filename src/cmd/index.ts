@@ -4,13 +4,13 @@ import { watchCommand } from './watch';
 import { lintCommand, lintExecCommand, lintFixCommand } from './lint';
 import { testCommand } from './test';
 
-export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
+export function registerNotImplementedCommand(prog: Sade, command: string): void {
   prog.command(command).action(() => {
     console.error(`${command} is not implemented yet`);
   });
-};
+}
 
-export const registerCommands = (prog: Sade): void => {
+export function registerCommands(prog: Sade): void {
   prog
     .command('build')
     .describe('It builds')
@@ -47,4 +47,4 @@ export const registerCommands = (prog: Sade): void => {
   // TODO: cdk-ez init (template directory)
   // TODO: Better local development experience
   // TODO: Eli wants "this isn't going to work" checks for user-specified customizations.
-};
+}

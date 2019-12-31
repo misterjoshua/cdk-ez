@@ -5,7 +5,7 @@ import { buildCommand } from './build';
 const chokidarWatch = (chokidar as any).watch;
 
 let building = false;
-const onChange = async (): Promise<void> => {
+async function onChange(): Promise<void> {
   if (!building) {
     building = true;
     try {
@@ -14,9 +14,9 @@ const onChange = async (): Promise<void> => {
       building = false;
     }
   }
-};
+}
 
-export const watchCommand = async (): Promise<void> => {
+export async function watchCommand(): Promise<void> {
   const watcher = chokidarWatch(['lib', 'lambda']);
   watcher.on('all', onChange);
-};
+}
