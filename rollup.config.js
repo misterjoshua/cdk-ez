@@ -25,6 +25,7 @@ export default {
     'execa',
     'fs',
     'util',
+    'jest',
   ],
   plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()],
 };

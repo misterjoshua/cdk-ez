@@ -4,6 +4,7 @@ import { watchCommand } from './watch';
 import { lintCommand } from './lint';
 import { lintFixCommand } from './lintFix';
 import { lintExecCommand } from './lintExec';
+import { testCommand } from './test';
 
 export const registerNotImplementedCommand = (prog: Sade, command: string): void => {
   prog.command(command).action(() => {
@@ -31,7 +32,16 @@ export const registerCommands = (prog: Sade): void => {
   prog.command('lint:execute').action(lintExecCommand);
   prog.command('lint:fix').action(lintFixCommand);
 
-  registerNotImplementedCommand(prog, 'test');
+  prog
+    .command('test')
+    .describe('it tests everything')
+    .option(
+      '--no-coverage',
+      'Indicates that test coverage information should not be colelcted and reported in the output.',
+    )
+    .option('--once', 'Tests should run once only.')
+    .action(testCommand);
+
   registerNotImplementedCommand(prog, 'init');
 
   // TODO: Support fractal project pattern.
