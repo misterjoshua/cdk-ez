@@ -20,12 +20,16 @@ export async function getRollupInputOptions(
   };
 }
 
+export function mapInputPathToDist(iput: string): string {
+  return iput.replace(/^\.\/(.*)\.[tj]s/, "$1/index.js");
+}
+
 export async function getRollupOutputOptions(
   input: string
 ): Promise<OutputOptions> {
   return {
     dir: "dist",
-    entryFileNames: "[name]/index.js",
+    entryFileNames: mapInputPathToDist(input),
     format: "cjs"
   };
 }
