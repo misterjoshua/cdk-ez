@@ -26,6 +26,6 @@ jobs:
         CI: true
     - name: Run the e2e test
       run: |
-        npm test:e2e
+        npm run test:e2e
       env:
         CI: true
