@@ -14,8 +14,8 @@
     "build": "rollup -c && chmod +x dist/index.js",
     "watch": "rollup -c && chmod +x dist/index.js && rollup -c --watch",
     "test": "jest",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "lint": "eslint 'src/**/*.ts' '*.js'",
+    "lint:fix": "eslint 'src/**/*.ts' '*.js' --fix",
     "lint:staged": "lint-staged",
     "run": "node dist/index.js $*",
     "cdk-ez": "run-s build run"
