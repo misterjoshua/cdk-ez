@@ -1,6 +1,6 @@
 {
-  "name": "cdk-ez-test",
-  "version": "1.0.0",
+  "name": "cdk-ez-template",
+  "version": "0.1.0",
   "description": "Sample CDK-ez project",
   "license": "MIT",
   "main": "index.js",
@@ -12,10 +12,8 @@
     "lint": "cdk-ez lint",
     "lint:fix": "cdk-ez lint --fix"
   },
-  "dependencies": {
-    "cdk-ez": "^0.1"
-  },
   "devDependencies": {
+    "cdk-ez": "*",
     "@aws-cdk/aws-apigateway": "^1.19.0"
   },
   "eslintConfig": {

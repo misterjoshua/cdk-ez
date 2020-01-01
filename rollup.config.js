@@ -12,20 +12,21 @@ export default {
     format: "cjs"
   },
   external: [
-    "sade",
-    "rollup",
     "@rollup/plugin-commonjs",
-    "@rollup/plugin-typescript",
     "@rollup/plugin-node-resolve",
-    "glob",
-    "listr",
-    "path",
+    "@rollup/plugin-typescript",
     "chokidar",
     "eslint",
     "execa",
+    "fs-extra",
     "fs",
-    "util",
-    "jest"
+    "glob",
+    "jest",
+    "listr",
+    "path",
+    "rollup",
+    "sade",
+    "util"
   ],
   plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()]
 };

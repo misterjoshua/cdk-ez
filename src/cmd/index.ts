@@ -3,6 +3,7 @@ import { buildCommand } from "./build";
 import { watchCommand } from "./watch";
 import { lintCommand, lintExecCommand, lintFixCommand } from "./lint";
 import { testCommand } from "./test";
+import { initCommand } from "./init";
 
 export function registerNotImplementedCommand(
   prog: Sade,
@@ -43,7 +44,11 @@ export function registerCommands(prog: Sade): void {
     .option("--once", "Tests should run once only.")
     .action(testCommand);
 
-  registerNotImplementedCommand(prog, "init");
+  prog
+    .command("init <projDir>")
+    .option("--test", "test option")
+    .describe("initializes a new project")
+    .action(initCommand);
 
   // TODO: Support fractal project pattern.
   // TODO: Support .cdk-ez.config.ts
