@@ -1,6 +1,6 @@
 import { CLIEngine } from 'eslint';
 import Listr from 'listr';
-import { getEslintOptions, getEslintPatterns } from '../../opinions/eslint';
+import { getEslintPatterns } from '../../opinions/eslint';
 import { lintFixTask } from './lintFixTask';
 import { lintExecTask } from './lintExecTask';
 import { LintError } from './lintError';
@@ -11,13 +11,17 @@ interface LintCommandOpts {
 }
 
 export async function lintCommand(opt: LintCommandOpts): Promise<void> {
-  const eslintOptions = await getEslintOptions(!!opt.fix);
+  const fix = opt.fix as boolean;
+
+  const eslintOptions = {
+    fix,
+  };
 
   const taskInfo: TaskInfo = {
     eslintOptions: eslintOptions,
     formatter: new CLIEngine(eslintOptions).getFormatter(),
     patterns: await getEslintPatterns(),
-    fix: !!opt.fix,
+    fix,
   };
 
   try {

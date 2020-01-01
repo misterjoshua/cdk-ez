@@ -1,4 +1,4 @@
-import { CLIEngine, Linter } from 'eslint';
+import { Linter } from 'eslint';
 
 export async function getEslintConfig(): Promise<Linter.Config> {
   return {
@@ -15,12 +15,6 @@ export async function getEslintConfig(): Promise<Linter.Config> {
       'plugin:@typescript-eslint/recommended',
       'plugin:prettier/recommended',
     ],
-  };
-}
-
-export async function getEslintOptions(fix: boolean): Promise<CLIEngine.Options> {
-  return {
-    fix: fix,
   };
 }
 
