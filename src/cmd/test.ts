@@ -1,5 +1,5 @@
-import jest from 'jest';
-import { getJestConfig } from '../opinions/jest';
+import jest from "jest";
+import { getJestConfig } from "../opinions/jest";
 
 interface TestCommandOpts {
   noCoverage: boolean | undefined;
@@ -12,14 +12,14 @@ function testShouldWatch(opt: TestCommandOpts): boolean {
 
 export async function testCommand(opt: TestCommandOpts): Promise<void> {
   const jestConfig = await getJestConfig();
-  const argv: string[] = ['--config', JSON.stringify(jestConfig)];
+  const argv: string[] = ["--config", JSON.stringify(jestConfig)];
 
   if (!opt.noCoverage) {
-    argv.push('--coverage');
+    argv.push("--coverage");
   }
 
   if (testShouldWatch(opt)) {
-    argv.push('--watch');
+    argv.push("--watch");
   }
 
   await jest.run(argv);

@@ -1,10 +1,10 @@
-import { CLIEngine } from 'eslint';
-import Listr from 'listr';
-import { getEslintPatterns } from '../../opinions/eslint';
-import { lintFixTask } from './lintFixTask';
-import { lintExecTask } from './lintExecTask';
-import { LintError } from './lintError';
-import { TaskInfo, LintTaskCtx } from './task';
+import { CLIEngine } from "eslint";
+import Listr from "listr";
+import { getEslintPatterns } from "../../opinions/eslint";
+import { lintFixTask } from "./lintFixTask";
+import { lintExecTask } from "./lintExecTask";
+import { LintError } from "./lintError";
+import { TaskInfo, LintTaskCtx } from "./task";
 
 interface LintCommandOpts {
   fix: boolean | undefined;
@@ -14,27 +14,27 @@ export async function lintCommand(opt: LintCommandOpts): Promise<void> {
   const fix = opt.fix as boolean;
 
   const eslintOptions = {
-    fix,
+    fix
   };
 
   const taskInfo: TaskInfo = {
     eslintOptions: eslintOptions,
     formatter: new CLIEngine(eslintOptions).getFormatter(),
     patterns: await getEslintPatterns(),
-    fix,
+    fix
   };
 
   try {
     const listr = new Listr<LintTaskCtx>([
       {
-        title: `Linting ${taskInfo.patterns.join(', ')}`,
-        task: lintExecTask(taskInfo),
+        title: `Linting ${taskInfo.patterns.join(", ")}`,
+        task: lintExecTask(taskInfo)
       },
       {
-        title: 'Automatically fixing problems',
+        title: "Automatically fixing problems",
         enabled: (): boolean => taskInfo.fix,
-        task: lintFixTask(taskInfo),
-      },
+        task: lintFixTask(taskInfo)
+      }
     ]);
 
     const ctx = await listr.run();

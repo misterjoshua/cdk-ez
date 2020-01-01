@@ -1,5 +1,5 @@
-import { CLIEngine } from 'eslint';
-import Listr from 'listr';
+import { CLIEngine } from "eslint";
+import Listr from "listr";
 
 export interface TaskInfo {
   eslintOptions: CLIEngine.Options;
@@ -14,5 +14,5 @@ export interface LintTaskCtx {
 
 export type LintTaskFn = (
   ctx: LintTaskCtx,
-  task: Listr.ListrTaskWrapper<LintTaskCtx>,
+  task: Listr.ListrTaskWrapper<LintTaskCtx>
 ) => Listr.ListrTaskResult<LintTaskCtx>;

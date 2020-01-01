@@ -1,4 +1,4 @@
-import { CLIEngine } from 'eslint';
+import { CLIEngine } from "eslint";
 
 export class LintError extends Error {
   readonly report: CLIEngine.LintReport;

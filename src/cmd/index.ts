@@ -1,10 +1,13 @@
-import { Sade } from 'sade';
-import { buildCommand } from './build';
-import { watchCommand } from './watch';
-import { lintCommand, lintExecCommand, lintFixCommand } from './lint';
-import { testCommand } from './test';
+import { Sade } from "sade";
+import { buildCommand } from "./build";
+import { watchCommand } from "./watch";
+import { lintCommand, lintExecCommand, lintFixCommand } from "./lint";
+import { testCommand } from "./test";
 
-export function registerNotImplementedCommand(prog: Sade, command: string): void {
+export function registerNotImplementedCommand(
+  prog: Sade,
+  command: string
+): void {
   prog.command(command).action(() => {
     console.error(`${command} is not implemented yet`);
   });
@@ -12,35 +15,35 @@ export function registerNotImplementedCommand(prog: Sade, command: string): void
 
 export function registerCommands(prog: Sade): void {
   prog
-    .command('build')
-    .describe('It builds')
+    .command("build")
+    .describe("It builds")
     .action(buildCommand);
 
   prog
-    .command('watch')
-    .describe('It watches and builds')
+    .command("watch")
+    .describe("It watches and builds")
     .action(watchCommand);
 
   prog
-    .command('lint')
-    .option('--fix', 'Tells lint to fix files')
-    .describe('it picks lint')
+    .command("lint")
+    .option("--fix", "Tells lint to fix files")
+    .describe("it picks lint")
     .action(lintCommand);
 
-  prog.command('lint:execute').action(lintExecCommand);
-  prog.command('lint:fix').action(lintFixCommand);
+  prog.command("lint:execute").action(lintExecCommand);
+  prog.command("lint:fix").action(lintFixCommand);
 
   prog
-    .command('test')
-    .describe('it tests everything')
+    .command("test")
+    .describe("it tests everything")
     .option(
-      '--no-coverage',
-      'Indicates that test coverage information should not be colelcted and reported in the output.',
+      "--no-coverage",
+      "Indicates that test coverage information should not be colelcted and reported in the output."
     )
-    .option('--once', 'Tests should run once only.')
+    .option("--once", "Tests should run once only.")
     .action(testCommand);
 
-  registerNotImplementedCommand(prog, 'init');
+  registerNotImplementedCommand(prog, "init");
 
   // TODO: Support fractal project pattern.
   // TODO: Support .cdk-ez.config.ts

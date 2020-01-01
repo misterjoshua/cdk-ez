@@ -1,10 +1,10 @@
-import { promisify } from 'util';
-import fs from 'fs';
-import { getTypescriptConfig } from '../opinions/typescript';
-import { shouldAutoGenerateFile, createJsonFile } from './autoGenerate';
+import { promisify } from "util";
+import fs from "fs";
+import { getTypescriptConfig } from "../opinions/typescript";
+import { shouldAutoGenerateFile, createJsonFile } from "./autoGenerate";
 
 async function installTypescriptConfig(): Promise<void> {
-  const tsconfig = './tsconfig.json';
+  const tsconfig = "./tsconfig.json";
 
   if (await shouldAutoGenerateFile(tsconfig)) {
     const config = await getTypescriptConfig();
@@ -15,7 +15,7 @@ async function installTypescriptConfig(): Promise<void> {
 
 export async function installLocalConfig(): Promise<void> {
   await Promise.all([
-    installTypescriptConfig(),
+    installTypescriptConfig()
     //
   ]);
 }

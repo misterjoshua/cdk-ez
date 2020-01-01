@@ -2,10 +2,10 @@ export async function getTypescriptConfig(): Promise<object> {
   return {
     compilerOptions: {
       sourceMap: true,
-      outDir: './dist/',
-      target: 'ES6',
-      module: 'CommonJS',
-      lib: ['ES6'],
+      outDir: "./dist/",
+      target: "ES6",
+      module: "CommonJS",
+      lib: ["ES6"],
       declaration: true,
       strict: true,
       noImplicitAny: true,
@@ -22,7 +22,7 @@ export async function getTypescriptConfig(): Promise<object> {
 
       resolveJsonModule: true,
       esModuleInterop: true,
-      moduleResolution: 'Node',
-    },
+      moduleResolution: "Node"
+    }
   };
 }
