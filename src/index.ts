@@ -3,10 +3,23 @@
 import sade from 'sade';
 import { registerCommands } from './cmd';
 import pkg from '../package.json';
+import { installLocalConfig } from './config/installLocalConfig';
 
-const prog = sade('cdk-ez');
+async function main(): Promise<void> {
+  const prog = sade('cdk-ez');
 
-prog.version(pkg.version);
-registerCommands(prog);
+  // Configure sade cli commands
+  prog.version(pkg.version);
+  registerCommands(prog);
 
-prog.parse(process.argv);
+  // Install local configuration files.
+  await installLocalConfig();
+
+  // Execute cli commands
+  prog.parse(process.argv);
+}
+
+main().catch((e: Error) => {
+  console.error(e);
+  process.exit(0);
+});
