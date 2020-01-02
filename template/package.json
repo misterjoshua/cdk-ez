@@ -1,20 +1,26 @@
 {
   "name": "cdk-ez-template",
   "version": "0.1.0",
-  "description": "Sample CDK-ez project",
+  "description": "CDK-ez project starter",
   "license": "MIT",
-  "main": "index.js",
   "scripts": {
     "build": "cdk-ez build",
-    "watch": "cdk-ez watch",
-    "test": "cdk-ez test",
-    "test:once": "cdk-ez test --once",
+    "lint:fix": "cdk-ez lint --fix",
     "lint": "cdk-ez lint",
-    "lint:fix": "cdk-ez lint --fix"
+    "start": "cdk-ez start",
+    "test:once": "cdk-ez test --once",
+    "test": "cdk-ez test"
+  },
+  "dependencies": {
+    "lodash": "4.x"
   },
   "devDependencies": {
     "cdk-ez": "*",
-    "@aws-cdk/aws-apigateway": "^1.19.0"
+    "@aws-cdk/core": "1.x",
+    "@aws-cdk/aws-apigateway": "1.x",
+    "@types/aws-lambda": "8.x",
+    "@types/jest": "24.x",
+    "@types/node": "10.x"
   },
   "eslintConfig": {
     "extends": "cdk-ez"

@@ -1,6 +1,6 @@
-import execa, { ExecaChildProcess } from "execa";
 import { readFile } from "fs";
 import { promisify } from "util";
+import { runSubprocess, SubprocessResult } from "./runSubprocess";
 
 const channelCharacterEncoding = "utf-8";
 const channelFileDescriptor = 0;
@@ -9,21 +9,18 @@ const channelFileDescriptor = 0;
  * From the parent process.
  */
 
-export async function sendSubprocessCommand<CommandType, ResultType>(
+export async function sendSubprocessCommandRaw<CommandType>(
+  command: string,
+  message: CommandType
+): Promise<SubprocessResult> {
+  return await runSubprocess("cdk-ez", [command], JSON.stringify(message));
+}
+
+export async function getSubprocessCommandResult<CommandType, ResultType>(
   command: string,
   message: CommandType
 ): Promise<ResultType> {
-  // Spawn the subprocess.
-  const subprocess: ExecaChildProcess<string> = execa("cdk-ez", [command]);
-
-  // Write to it
-  subprocess.stderr?.pipe(process.stderr);
-  subprocess.stdin?.write(JSON.stringify(message));
-  subprocess.stdin?.end();
-
-  // Wait for its output.
-  const { stdout } = await subprocess;
-
+  const { stdout } = await sendSubprocessCommandRaw(command, message);
   return JSON.parse(stdout);
 }
 
@@ -31,7 +28,7 @@ export async function sendSubprocessCommand<CommandType, ResultType>(
  * From the subprocess
  */
 
-export async function receiveSubprocessCommandProps<CommandType>(): Promise<
+export async function receiveSubprocessCommand<CommandType>(): Promise<
   CommandType
 > {
   // Read the stdin for the command props
@@ -42,7 +39,7 @@ export async function receiveSubprocessCommandProps<CommandType>(): Promise<
   return JSON.parse(commandString);
 }
 
-export async function sendSubprocessResponse<ResponseType>(
+export async function sendSubprocessResult<ResponseType>(
   response: ResponseType
 ): Promise<void> {
   // Send the response by writing to stdout and closing it.

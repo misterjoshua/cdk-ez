@@ -1,18 +1,10 @@
 import { Sade } from "sade";
 import { buildCommand } from "./build";
-import { watchCommand } from "./watch";
 import { lintCommand, lintExecCommand, lintFixCommand } from "./lint";
 import { testCommand } from "./test";
 import { initCommand } from "./init";
-
-export function registerNotImplementedCommand(
-  prog: Sade,
-  command: string
-): void {
-  prog.command(command).action(() => {
-    console.error(`${command} is not implemented yet`);
-  });
-}
+import { startCommand } from "./start";
+import { buildLambdaCommand } from "./build/buildLambda";
 
 export function registerCommands(prog: Sade): void {
   prog
@@ -21,9 +13,14 @@ export function registerCommands(prog: Sade): void {
     .action(buildCommand);
 
   prog
-    .command("watch")
+    .command("build:lambda")
+    .describe("It builds a lambda")
+    .action(buildLambdaCommand);
+
+  prog
+    .command("start")
     .describe("It watches and builds")
-    .action(watchCommand);
+    .action(startCommand);
 
   prog
     .command("lint")
@@ -52,7 +49,5 @@ export function registerCommands(prog: Sade): void {
 
   // TODO: Support fractal project pattern.
   // TODO: Support .cdk-ez.config.ts
-  // TODO: cdk-ez init (template directory)
-  // TODO: Better local development experience
   // TODO: Eli wants "this isn't going to work" checks for user-specified customizations.
 }

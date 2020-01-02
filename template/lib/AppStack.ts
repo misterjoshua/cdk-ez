@@ -17,24 +17,16 @@ export class AppStack extends cdk.Stack {
         pathPart: pathPart
       });
 
-    new HelloApi(
-      this,
-      `staticApi`,
-      newResource("hello", api.root),
-      `hello from cdk`
-    );
+    const staticResource = newResource("hello", api.root);
+    new HelloApi(this, "staticApi", staticResource, "hello from cdk");
+    new cdk.CfnOutput(this, "endpointStatic", {
+      value: staticResource.url
+    });
 
-    const dynamicResource = newResource("say", api.root);
-    new HelloApi(
-      this,
-      `dynamic`,
-      newResource("{say}", dynamicResource),
-      `{say} from cdk`
-    );
+    const dynamicResource = newResource("{say}", newResource("say", api.root));
+    new HelloApi(this, "dynamic", dynamicResource, `{say} from cdk`);
+    new cdk.CfnOutput(this, "endpointDynamic", {
+      value: dynamicResource.url
+    });
   }
 }
-
-/**
- * https://82vs19ey5e.execute-api.ca-central-1.amazonaws.com/prod/hello
- * https://82vs19ey5e.execute-api.ca-central-1.amazonaws.com/prod/say/whattup
- */

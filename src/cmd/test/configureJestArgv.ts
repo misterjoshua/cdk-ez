@@ -1,16 +1,13 @@
-import jest from "jest";
-import { getJestConfig } from "../opinions/jest";
-
-interface TestCommandOpts {
-  noCoverage: boolean | undefined;
-  once: boolean | undefined;
-}
+import { getJestConfig } from "../../opinions/jest";
+import { TestCommandOpts } from "./index";
 
 function testShouldWatch(opt: TestCommandOpts): boolean {
   return !process.env.CI && !opt.once;
 }
 
-export async function testCommand(opt: TestCommandOpts): Promise<void> {
+export async function configureJestArgv(
+  opt: TestCommandOpts
+): Promise<string[]> {
   const jestConfig = await getJestConfig();
   const argv: string[] = ["--config", JSON.stringify(jestConfig)];
 
@@ -22,5 +19,5 @@ export async function testCommand(opt: TestCommandOpts): Promise<void> {
     argv.push("--watch");
   }
 
-  await jest.run(argv);
+  return argv;
 }

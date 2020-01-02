@@ -1,11 +1,14 @@
-import { LintError } from "./lintError";
-import { TaskInfo, LintTaskFn } from "./task";
+import { LintTaskContext } from "./lintTask";
 import { CLIEngine } from "eslint";
 import {
-  receiveSubprocessCommandProps,
-  sendSubprocessResponse,
-  sendSubprocessCommand
-} from "../subprocessCommand";
+  receiveSubprocessCommand,
+  sendSubprocessResult,
+  getSubprocessCommandResult
+} from "../../util/subprocessCommand";
+import { addListrOutput, ListrOutputError } from "../../util/listrOutput";
+import chalk from "chalk";
+import figures from "figures";
+import { ListrTaskWrapper } from "listr";
 
 export interface LintExecCommandProps {
   patterns: string[];
@@ -13,17 +16,17 @@ export interface LintExecCommandProps {
 }
 
 export async function lintExecCommand(): Promise<void> {
-  const props = await receiveSubprocessCommandProps<LintExecCommandProps>();
+  const props = await receiveSubprocessCommand<LintExecCommandProps>();
   const engine = new CLIEngine(props.options);
   const report = engine.executeOnFiles(props.patterns);
-  await sendSubprocessResponse(report);
+  await sendSubprocessResult(report);
 }
 
 export async function lintExec(
   patterns: string[],
   options: CLIEngine.Options
 ): Promise<CLIEngine.LintReport> {
-  return await sendSubprocessCommand<
+  return await getSubprocessCommandResult<
     LintExecCommandProps,
     CLIEngine.LintReport
   >("lint:execute", {
@@ -32,17 +35,29 @@ export async function lintExec(
   });
 }
 
-export function lintExecTask(taskInfo: TaskInfo): LintTaskFn {
-  return async (_ctx, task): Promise<void> => {
-    task.output = "Executing cdk-ez lint:execute subprocess";
-    const report = await lintExec(taskInfo.patterns, taskInfo.eslintOptions);
+export async function lintExecTask(
+  ctx: LintTaskContext,
+  task: ListrTaskWrapper
+): Promise<void> {
+  task.output = "Executing cdk-ez lint:execute subprocess";
+  const report = await lintExec(ctx.patterns, ctx.eslintOptions);
+  ctx.report = report;
 
-    if (!taskInfo.fix && report.errorCount > 0) {
-      throw new LintError("There are linting errors.", report);
-    } else if (taskInfo.fix && report.errorCount > report.fixableErrorCount) {
-      throw new LintError("There are linting errors.", report);
-    }
-
-    _ctx.report = report;
-  };
+  if (
+    (!ctx.fix && report.errorCount > 0) ||
+    (ctx.fix && report.errorCount > report.fixableErrorCount)
+  ) {
+    addListrOutput(
+      ctx,
+      chalk.redBright(`${figures.cross} Linting ${ctx.patterns.join(",")}`),
+      ctx.formatter(report.results)
+    );
+    throw new ListrOutputError("There are linting errors", ctx);
+  } else {
+    addListrOutput(
+      ctx,
+      chalk.greenBright(`${figures.tick} Linted ${ctx.patterns.join(",")}`),
+      ctx.formatter(report.results).trimLeft()
+    );
+  }
 }
