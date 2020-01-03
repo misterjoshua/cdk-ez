@@ -1,12 +1,14 @@
 import * as chokidar from "chokidar";
 import { runListrOutputTaskList } from "../../util/listrOutput";
 import { startTask } from "./task";
+import chalk from "chalk";
 
 let building = false;
 async function onChange(): Promise<void> {
   if (!building) {
     building = true;
     try {
+      console.log(chalk.dim(new Date()));
       await runListrOutputTaskList(startTask());
     } catch (e) {
       console.error("Build failed for an unexpected reason", e);

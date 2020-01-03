@@ -5,6 +5,7 @@ import {
   sendSubprocessResult,
   sendSubprocessCommandRaw
 } from "../../util/subprocessCommand";
+import { formatBuildLambdaException } from "./formatErrors";
 
 interface BuildLambdaCommand {
   input: string;
@@ -30,12 +31,14 @@ export async function buildLambdaCommand(): Promise<void> {
     const build = await rollup(
       await rollupOpinions.getRollupInputOptions(command.input)
     );
+
     const rollupOutput = await build.write(
       await rollupOpinions.getRollupOutputOptions(command.input)
     );
 
     sendSubprocessResult(rollupOutput.output.map(o => o.fileName).join(", "));
   } catch (e) {
+    console.error(formatBuildLambdaException(e));
     sendSubprocessResult("Build did not succeed: " + e.message);
     process.exit(1);
   }
