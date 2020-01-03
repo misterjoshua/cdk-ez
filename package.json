@@ -1,6 +1,6 @@
 {
   "name": "cdk-ez",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Zero-config easy AWS CDK serverless development",
   "author": "Josh Kellendonk",
   "license": "MIT",
