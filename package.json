@@ -43,7 +43,7 @@
     "@types/prettier": "^1.19.0",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
-    "@wessberg/rollup-plugin-ts": "1.1.x",
+    "@wessberg/rollup-plugin-ts": "1.1.83",
     "chalk": "^3.0.0",
     "chokidar": "^2.1.8",
     "eslint": "^6.8.0",
