@@ -16,10 +16,11 @@
   },
   "devDependencies": {
     "cdk-ez": "*",
-    "@aws-cdk/core": "1.x",
     "@aws-cdk/aws-apigateway": "1.x",
+    "@aws-cdk/core": "1.x",
     "@types/aws-lambda": "8.x",
     "@types/jest": "24.x",
+    "@types/lodash": "^4.14.149",
     "@types/node": "10.x"
   },
   "eslintConfig": {
