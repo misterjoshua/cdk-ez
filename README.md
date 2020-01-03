@@ -16,7 +16,7 @@ This package is a single-dependency project starter for TypeScript-based AWS CDK
 ```
 npx cdk-ez init mycdk
 cd mycdk
-npm run watch
+npm run start
 ```
 
 And now your code will live-rebuild. The quick start template includes a working REST API, so you can immediately deploy it:
@@ -37,4 +37,4 @@ Stack ARN:
 arn:aws:cloudformation:ca-central-1:000000000000:stack/MyStack/00000000-0000-0000-0000-000000000000
 ```
 
-And visit the hello world API resource by
+You can use the newly deploy hello world API resource by accessing the `MyStack.endpointStatic` output shown.
