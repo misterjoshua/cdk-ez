@@ -2,6 +2,7 @@ import temp from "temp";
 import { initCommand } from "../src/cmd/init";
 import fs from "fs";
 import execa from "execa";
+import { getRecommendedVersion } from "../src/getVersion";
 
 jest.setTimeout(300000); // Wait a really long time for this task. It's slow.
 
@@ -21,7 +22,7 @@ it("inits a new project ", async () => {
   expect(pkg).toEqual(
     expect.objectContaining({
       devDependencies: expect.objectContaining({
-        "cdk-ez": expect.any(String)
+        "cdk-ez": "^" + getRecommendedVersion()
       }),
       eslintConfig: expect.objectContaining({
         extends: "cdk-ez"

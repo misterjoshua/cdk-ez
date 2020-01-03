@@ -2,13 +2,14 @@ import fse from "fs-extra";
 import { getPackageDir } from "../getPackageDir";
 import execa from "execa";
 import Listr from "listr";
+import { getRecommendedVersion } from "../getVersion";
 
 async function patchPackageJsonCdkEzVersion(
   packageJson: string
 ): Promise<void> {
   const pkgJson = await (await fse.readFile(packageJson)).toString();
 
-  const version = "^0.2";
+  const version = "^" + getRecommendedVersion();
   const patchedPkgJson = pkgJson.replace(
     '"cdk-ez": "*"',
     `"cdk-ez": "${version}"`
