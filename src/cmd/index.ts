@@ -1,10 +1,9 @@
 import { Sade } from "sade";
-import { buildCommand } from "./build";
+import { buildCommand, buildLambdaCommand } from "./build";
 import { lintCommand, lintExecCommand, lintFixCommand } from "./lint";
 import { testCommand } from "./test";
 import { initCommand } from "./init";
 import { startCommand } from "./start";
-import { buildLambdaCommand } from "./build/buildLambda";
 
 export function registerCommands(prog: Sade): void {
   prog
@@ -12,10 +11,7 @@ export function registerCommands(prog: Sade): void {
     .describe("It builds")
     .action(buildCommand);
 
-  prog
-    .command("build:lambda")
-    .describe("It builds a lambda")
-    .action(buildLambdaCommand);
+  prog.command("build:lambda").action(buildLambdaCommand);
 
   prog
     .command("start")
