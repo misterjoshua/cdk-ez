@@ -14,7 +14,6 @@ export default {
   external: [
     "@rollup/plugin-commonjs",
     "@rollup/plugin-node-resolve",
-    "@rollup/plugin-typescript",
     "@wessberg/rollup-plugin-ts",
     "chalk",
     "chokidar",
