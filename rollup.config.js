@@ -13,6 +13,7 @@ export default {
   },
   external: [
     "@rollup/plugin-commonjs",
+    "@rollup/plugin-json",
     "@rollup/plugin-node-resolve",
     "@wessberg/rollup-plugin-ts",
     "chalk",
