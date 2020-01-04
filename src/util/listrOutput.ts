@@ -42,7 +42,7 @@ function formatListrOutput(output: ListrOutput): string {
   return (
     chalk.underline(`${output.title}`) +
     //
-    (output.output ? `\n\n${output.output}` : "\n")
+    (output.output ? `\n\n${output.output.trim()}\n` : "\n")
   );
 }
 

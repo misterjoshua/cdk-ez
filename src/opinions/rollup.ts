@@ -1,7 +1,6 @@
 import { InputOptions, OutputOptions } from "rollup";
 import rpTypescript from "@wessberg/rollup-plugin-ts";
 import commonjs from "@rollup/plugin-commonjs";
-import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 
 export async function getRollupInputOptions(
@@ -12,7 +11,6 @@ export async function getRollupInputOptions(
     plugins: [
       //
       rpTypescript(),
-      resolve(),
       commonjs(),
       json()
     ]

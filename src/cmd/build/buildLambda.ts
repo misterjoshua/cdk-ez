@@ -11,7 +11,12 @@ interface BuildLambdaCommand {
   input: string;
 }
 
-export async function buildLambda(input: string): Promise<string> {
+export interface BuildLambdaOutput {
+  emitted: string;
+  output: string;
+}
+
+export async function buildLambda(input: string): Promise<BuildLambdaOutput> {
   const response = await sendSubprocessCommandRaw<BuildLambdaCommand>(
     "build:lambda",
     { input }
@@ -21,7 +26,10 @@ export async function buildLambda(input: string): Promise<string> {
     throw new Error(response.stderr);
   }
 
-  return JSON.parse(response.stdout) as string;
+  return {
+    output: response.stderr,
+    emitted: response.stdout
+  };
 }
 
 export async function buildLambdaCommand(): Promise<void> {
