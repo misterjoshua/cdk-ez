@@ -2,19 +2,22 @@ import { InputOptions, OutputOptions } from "rollup";
 import rpTypescript from "@wessberg/rollup-plugin-ts";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
+import builtins from "builtin-modules";
+import { applyLocalConfig } from "../applyLocalConfig";
 
 export async function getRollupInputOptions(
   input: string
 ): Promise<InputOptions> {
-  return {
+  return await applyLocalConfig("rollupInputOptions", {
     input,
+    external: builtins.map(i => i),
     plugins: [
       //
       rpTypescript(),
       commonjs(),
       json()
     ]
-  };
+  });
 }
 
 export function mapInputPathToDist(iput: string): string {
@@ -24,9 +27,9 @@ export function mapInputPathToDist(iput: string): string {
 export async function getRollupOutputOptions(
   input: string
 ): Promise<OutputOptions> {
-  return {
+  return await applyLocalConfig("rollupOutputOptions", {
     dir: "dist",
     entryFileNames: mapInputPathToDist(input),
     format: "cjs"
-  };
+  });
 }

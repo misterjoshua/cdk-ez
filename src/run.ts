@@ -1,6 +1,6 @@
 import sade from "sade";
 import { registerCommands } from "./cmd";
-import { installLocalConfig } from "./config/installLocalConfig";
+import { installLocalConfig } from "./config/installLocalConfigFiles";
 import { getVersion } from "./getVersion";
 
 export async function run(argv: string[]): Promise<void> {

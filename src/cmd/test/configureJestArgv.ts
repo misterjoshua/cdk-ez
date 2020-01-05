@@ -1,4 +1,4 @@
-import { getJestConfig } from "../../opinions/jest";
+import { getJestConfig } from "../../config/default/jest";
 import { TestCommandOpts } from "./index";
 
 function testShouldWatch(opt: TestCommandOpts): boolean {

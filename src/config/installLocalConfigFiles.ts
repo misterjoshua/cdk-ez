@@ -1,12 +1,12 @@
 import { promisify } from "util";
 import fs from "fs";
-import { getTypescriptConfig } from "../opinions/typescript";
+import { getTypescriptConfig } from "./default/typescript";
 import {
   shouldAutoGenerateFile,
   createJsonFile,
   createIniFile
 } from "./autoGenerate";
-import { getEditorConfig } from "../opinions/editorconfig";
+import { getEditorConfig } from "./default/editorconfig";
 
 async function installTypescriptConfig(): Promise<void> {
   const tsconfig = "./tsconfig.json";

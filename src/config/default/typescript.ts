@@ -1,5 +1,7 @@
+import { applyLocalConfig } from "../applyLocalConfig";
+
 export async function getTypescriptConfig(): Promise<object> {
-  return {
+  return await applyLocalConfig("typescriptConfig", {
     compilerOptions: {
       sourceMap: true,
       outDir: "./dist/",
@@ -24,5 +26,5 @@ export async function getTypescriptConfig(): Promise<object> {
       esModuleInterop: true,
       moduleResolution: "Node"
     }
-  };
+  });
 }

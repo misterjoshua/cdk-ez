@@ -1,7 +1,7 @@
 import { CLIEngine } from "eslint";
 import Listr from "listr";
 import { ListrOutputContext } from "../../util/listrOutput";
-import { getEslintPatterns } from "../../opinions/eslint";
+import { getEslintPatterns } from "../../config/default/eslint";
 import { lintExecTask } from "./lintExecTask";
 import { lintFixTask } from "./lintFixTask";
 import { LintCommandOpts } from "./lintCommand";

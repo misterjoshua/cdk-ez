@@ -1,5 +1,5 @@
 import { rollup } from "rollup";
-import * as rollupOpinions from "../../opinions/rollup";
+import * as rollupOpinions from "../../config/default/rollup";
 import {
   receiveSubprocessCommand,
   sendSubprocessResult,

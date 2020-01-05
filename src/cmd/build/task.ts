@@ -1,5 +1,5 @@
 import Listr from "listr";
-import { getEntries } from "../../opinions/entry";
+import { getEntries } from "../../config/default/entry";
 import * as listrOutput from "../../util/listrOutput";
 import chalk from "chalk";
 import figures from "figures";

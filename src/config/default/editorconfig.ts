@@ -1,3 +1,5 @@
+import { applyLocalConfig } from "../applyLocalConfig";
+
 /* eslint-disable @typescript-eslint/camelcase */
 
 export type EditorConfigString<Options> = Options | undefined;
@@ -22,7 +24,7 @@ export interface EditorConfig {
 }
 
 export async function getEditorConfig(): Promise<EditorConfig> {
-  return {
+  return await applyLocalConfig("editorConfig", {
     "*": {
       charset: "utf-8",
       indent_size: 2,
@@ -30,5 +32,5 @@ export async function getEditorConfig(): Promise<EditorConfig> {
       insert_final_newline: true,
       trim_trailing_whitespace: true
     }
-  };
+  });
 }

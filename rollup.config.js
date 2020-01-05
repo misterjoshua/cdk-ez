@@ -16,6 +16,7 @@ export default {
     "@rollup/plugin-json",
     "@rollup/plugin-node-resolve",
     "@wessberg/rollup-plugin-ts",
+    "builtin-modules",
     "chalk",
     "chokidar",
     "eslint",
@@ -29,6 +30,7 @@ export default {
     "path",
     "rollup",
     "sade",
+    "typescript",
     "util"
   ],
   plugins: [typescript(tsconfig.compilerOptions), json(), preserveShebangs()]
