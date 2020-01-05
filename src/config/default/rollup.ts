@@ -21,7 +21,7 @@ export async function getRollupInputOptions(
 }
 
 export function mapInputPathToDist(iput: string): string {
-  return iput.replace(/^\.\/(.*)\.[tj]s/, "$1/index.js");
+  return iput.replace(/^(\.\/)?(.*)\.[tj]s/, "$2/index.js");
 }
 
 export async function getRollupOutputOptions(
