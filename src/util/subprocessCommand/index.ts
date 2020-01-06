@@ -20,8 +20,22 @@ export async function getSubprocessCommandResult<CommandType, ResultType>(
   command: string,
   message: CommandType
 ): Promise<ResultType> {
-  const { stdout } = await sendSubprocessCommandRaw(command, message);
-  return JSON.parse(stdout);
+  const { stdout, stderr, exitStatus } = await sendSubprocessCommandRaw(
+    command,
+    message
+  );
+
+  if (exitStatus !== 0) {
+    throw new Error(`Subprocess failed:\n${stderr}`);
+  }
+
+  try {
+    return JSON.parse(stdout);
+  } catch (err) {
+    throw new Error(
+      `Could not parse lint subprocess result: ${err.message}\n==> STDOUT:\n${stdout}\n==> STDERR:\n${stderr}`
+    );
+  }
 }
 
 /**

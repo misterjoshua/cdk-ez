@@ -7,5 +7,6 @@ export interface LintCommandOpts {
 
 export async function lintCommand(opt: LintCommandOpts): Promise<void> {
   const task = await lintTask(opt);
-  runListrOutputTaskList(task);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await runListrOutputTaskList(task as any);
 }
