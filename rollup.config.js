@@ -15,6 +15,7 @@ export default {
     "@rollup/plugin-commonjs",
     "@rollup/plugin-json",
     "@rollup/plugin-node-resolve",
+    "@rollup/plugin-typescript",
     "@wessberg/rollup-plugin-ts",
     "builtin-modules",
     "chalk",

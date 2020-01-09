@@ -1,5 +1,5 @@
 import { InputOptions, OutputOptions } from "rollup";
-import rpTypescript from "@wessberg/rollup-plugin-ts";
+import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import builtins from "builtin-modules";
@@ -11,12 +11,7 @@ export async function getRollupInputOptions(
   return await applyLocalConfig("rollupInputOptions", {
     input,
     external: builtins.map(i => i),
-    plugins: [
-      //
-      rpTypescript(),
-      commonjs(),
-      json()
-    ]
+    plugins: [typescript(), commonjs(), json()]
   });
 }
 

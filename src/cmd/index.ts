@@ -4,6 +4,7 @@ import { lintCommand, lintExecCommand, lintFixCommand } from "./lint";
 import { testCommand } from "./test";
 import { initCommand } from "./init";
 import { startCommand } from "./start";
+import { typeCheckCommand } from "./build/typeCheck";
 
 export function registerCommands(prog: Sade): void {
   prog
@@ -12,6 +13,7 @@ export function registerCommands(prog: Sade): void {
     .action(buildCommand);
 
   prog.command("build:lambda").action(buildLambdaCommand);
+  prog.command("build:typeCheck").action(typeCheckCommand);
 
   prog
     .command("start")

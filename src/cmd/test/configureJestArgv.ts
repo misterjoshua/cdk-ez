@@ -1,4 +1,3 @@
-import { getJestConfig } from "../../config/default/jest";
 import { TestCommandOpts } from "./index";
 
 function testShouldWatch(opt: TestCommandOpts): boolean {
@@ -8,8 +7,7 @@ function testShouldWatch(opt: TestCommandOpts): boolean {
 export async function configureJestArgv(
   opt: TestCommandOpts
 ): Promise<string[]> {
-  const jestConfig = await getJestConfig();
-  const argv: string[] = ["--config", JSON.stringify(jestConfig)];
+  const argv: string[] = [];
 
   if (!opt.noCoverage) {
     argv.push("--coverage");

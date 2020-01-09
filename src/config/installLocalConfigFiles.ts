@@ -4,9 +4,11 @@ import { getTypescriptConfig } from "./default/typescript";
 import {
   shouldAutoGenerateFile,
   createJsonFile,
-  createIniFile
+  createIniFile,
+  createModuleExportsFile
 } from "./autoGenerate";
 import { getEditorConfig } from "./default/editorconfig";
+import { getJestConfig } from "./default/jest";
 
 async function installTypescriptConfig(): Promise<void> {
   const tsconfig = "./tsconfig.json";
@@ -28,10 +30,21 @@ async function installEditorConfig(): Promise<void> {
   }
 }
 
+async function installJestConfig(): Promise<void> {
+  const jestconfig = "./jest.config.js";
+
+  if (await shouldAutoGenerateFile(jestconfig)) {
+    const config = await getJestConfig();
+    const configFile = createModuleExportsFile(JSON.stringify(config, null, 2));
+    await promisify(fs.writeFile)(jestconfig, configFile);
+  }
+}
+
 export async function installLocalConfig(): Promise<void> {
   await Promise.all([
     installTypescriptConfig(),
-    installEditorConfig()
+    installEditorConfig(),
+    installJestConfig()
     //
   ]);
 }

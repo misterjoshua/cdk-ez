@@ -6,6 +6,7 @@ import figures from "figures";
 import { buildLambda } from "./buildLambda";
 import fse from "fs-extra";
 import execa from "execa";
+import { typeCheck } from "./typeCheck";
 
 interface BuildContext extends listrOutput.ListrOutputContext {
   entries: string[];
@@ -24,7 +25,30 @@ export async function buildDependencyLayer(ctx: BuildContext): Promise<void> {
     cwd: distDir
   });
 
-  listrOutput.addListrOutput(ctx, "Dependencies layer", result.stdout);
+  listrOutput.addListrOutput(
+    ctx,
+    chalk.greenBright("Dependencies layer"),
+    result.stdout
+  );
+}
+
+async function typeCheckStep(entry: string, ctx: BuildContext): Promise<void> {
+  try {
+    await typeCheck(entry);
+
+    listrOutput.addListrOutput(
+      ctx,
+      chalk.greenBright(`${figures.tick} Type checked ${chalk.bold(entry)}`),
+      ""
+    );
+  } catch (e) {
+    listrOutput.addListrOutput(
+      ctx,
+      chalk.redBright(`${figures.cross} Type checking ${entry}`),
+      e.message
+    );
+    throw new listrOutput.ListrOutputError(e.message, ctx);
+  }
 }
 
 async function buildLambdaStep(
@@ -51,11 +75,29 @@ async function buildLambdaStep(
   }
 }
 
-function buildLambdasStep(ctx: BuildContext): Listr {
-  const lambdaTasks = ctx.entries.map((entry: string) => ({
+function buildLambdasStep(topLevelBuildContext: BuildContext): Listr {
+  const lambdaTasks = topLevelBuildContext.entries.map((entry: string) => ({
     title: `${entry}`,
-    task: async (): Promise<void> => {
-      await buildLambdaStep(entry, ctx);
+    task: (): Listr => {
+      return new Listr<BuildContext>(
+        [
+          {
+            title: "Transpiling",
+            task: async (): Promise<void> => {
+              await buildLambdaStep(entry, topLevelBuildContext);
+            }
+          },
+          {
+            title: "Type checking",
+            task: async (): Promise<void> => {
+              await typeCheckStep(entry, topLevelBuildContext);
+            }
+          }
+        ],
+        {
+          concurrent: true
+        }
+      );
     }
   }));
 
@@ -63,7 +105,7 @@ function buildLambdasStep(ctx: BuildContext): Listr {
     {
       title: `Dependencies layer`,
       task: async (): Promise<void> => {
-        await buildDependencyLayer(ctx);
+        await buildDependencyLayer(topLevelBuildContext);
       }
     },
     ...lambdaTasks

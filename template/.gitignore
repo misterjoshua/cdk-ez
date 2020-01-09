@@ -9,4 +9,5 @@ coverage
 .prettierrc.js
 .editorconfig
 tsconfig.json
+jest.config.js
 template.yml
